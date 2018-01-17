@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import Hero from './subcomponents/Hero';
 import BlogThumb from './subcomponents/BlogThumb';
+import axios from 'axios';
 
-// import axios
+
 
 class Home extends Component{
     constructor(){
@@ -14,7 +15,15 @@ class Home extends Component{
         }
     }
 
-    // insert componentWillMount:
+    componentWillMount(){
+        axios.get('/api/featured').then(results=>{
+            this.setState({
+                featured: results.data,
+                index: (~~(Math.random() * results.data.length)+0),
+                posts: results.data
+            })
+        }).catch(console.log)
+    }
     
 
     render(){
